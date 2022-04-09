@@ -33,7 +33,6 @@ func rotate(matrix [][]int) {
             tmp := matrix[i][j]
             matrix[i][j] = matrix[j][i]
             matrix[j][i] = tmp
-            fmt.Println(matrix)
         }
     }
 }
