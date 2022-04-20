@@ -24,43 +24,40 @@
  * }
  */
 func isPalindrome(head *ListNode) bool {
-    // copy list
-    dummy := &ListNode{}
+    n := 0
+
     node := head
-    cpNode := dummy
-
     for node != nil {
-        newNode := &ListNode{Val: node.Val}
-        cpNode.Next = newNode
-
+        n++
         node = node.Next
-        cpNode = cpNode.Next
     }
 
-    // reverse list
-    var prev *ListNode
-    node = dummy.Next
+    mid := n / 2
 
-    for node != nil {
+    node = head
+    var prev *ListNode
+    for i := 0; i < mid; i++ {
         tmp := node.Next
         node.Next = prev
         prev = node
         node = tmp
     }
 
-    // prev -> nil vs head -> nil
-    fmt.Println(head)
-    fmt.Println(prev)
-    for prev != nil {
-        if prev.Val != head.Val {
-            return false
-        }
-        prev = prev.Next
-        head = head.Next
+    newHead := prev
+
+    var compareHead *ListNode
+    if n%2 == 0 {
+        compareHead = node
+    } else {
+        compareHead = node.Next
     }
 
-    if prev == nil && head == nil {
-        return true
+    for compareHead != nil {
+        if newHead.Val != compareHead.Val {
+            return false
+        }
+        newHead = newHead.Next
+        compareHead = compareHead.Next
     }
-    return false
+    return true
 }
